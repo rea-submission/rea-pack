@@ -1,0 +1,137 @@
+#
+---
+
+
+# // test mode
+- hosts: targets
+
+  # don't waste too much time on this
+  gather_facts: no
+
+#
+# the playbook itself
+#
+
+  vars:
+
+    local:
+      template_dir: '.'
+    # config_path: "./config"
+    target:
+      webdir: "/local/sinatra_hello"
+      service_name: "sinatra-hello"
+      internal_port: '9292'
+
+  # -----------------------------
+  # start
+
+  tasks:
+
+
+  # -----------------------------
+  # test connection
+
+  # default python interpreter is per host basis set in "Inventory"
+  - name: "ping python"
+    ping:
+    async: 15
+    poll: 5
+    # dbg
+    # failed_when: true
+    # when: false
+
+
+  # -----------------------------
+  # install prerequisites
+
+  # git, ruby
+  - name: install prerequisites - 1 - apt
+    # [ https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html ]
+    apt:
+      name: "{{item}}"
+      state: present
+      # // fixme: pull off the loop
+      update_cache: yes
+    loop:
+      - git
+      - rubygems
+      # // switching to an apt version for now -- see the comment below
+      - ruby-bundler
+
+# // this does not install a bundle2.7 ->bundle symlink,
+# // so let us go with a repo package first
+#    - name: install prerequisites - 2 - gems
+#      # [ https://docs.ansible.com/ansible/latest/collections/community/general/gem_module.html ]
+#      community.general.gem:
+#        name: bundler
+#        state: latest
+
+
+  # -----------------------------
+  # install sinatra app
+
+  - name: create app directory
+    ansible.builtin.file:
+      path: "{{ target.webdir}}"
+      state: directory
+      mode: '0755'
+
+  - name: pull most recent app version
+    ansible.builtin.git:
+      ## repo: 'https://github.com/gf-mse/deleteme-1'
+      repo: 'https://github.com/rea-cruitment/simple-sinatra-app'
+      dest: "{{ target.webdir}}"
+      update: yes
+
+  - name: run bundler install
+    # [ https://docs.ansible.com/ansible/latest/collections/community/general/bundler_module.html ]
+    community.general.bundler:
+      state: latest
+      chdir: "{{ target.webdir}}"
+
+
+  - name: create sinatra app systemd unit file
+    ansible.builtin.template:
+      src: "{{ local.template_dir }}/sinatra_hello.service.j2"
+      dest: "/etc/systemd/system/{{target.service_name}}.service"
+      ## owner: bin
+      ## group: wheel
+      mode: '0644'  
+      backup: yes
+    register: unit_file
+
+
+  - name: enable sinatra app service
+    ansible.builtin.systemd:
+      name: "{{target.service_name}}"
+      # // handler dependencies are too fragile
+      ## daemon_reload: yes
+      daemon_reload: "{{ 'yes' if unit_file.changed else 'no' }}"
+      enabled: yes
+      state: started
+
+  # -----------------------------
+  # install nginx gateway proxy
+
+  - name: install nginx
+    apt:
+      name: "{{item}}"
+      state: present
+    loop:
+      - nginx
+
+  - name: create nginx default server config
+    ansible.builtin.template:
+      src: "{{ local.template_dir }}/nginx.default.j2"
+      dest: "/etc/nginx/sites-available/default"
+      mode: '0644'  
+      backup: yes
+    register: nginx_default_site_config
+
+
+  - name: reload nginx config if needed
+    ansible.builtin.systemd:
+      name: nginx
+      # // handler dependencies are too fragile
+      state: "{{ 'reloaded' if nginx_default_site_config.changed else 'started' }}"
+

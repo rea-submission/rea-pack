@@ -1,0 +1,58 @@
+#
+# to enable (after cp), cast "systemctl enable $filename" ; after editing, do 'systemctl daemon-reload'
+#
+
+[Unit]
+
+Description=sinatra hello app
+
+# makes no sense w/o networking
+# // [ https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget ]
+Requires=network-online.target
+After=network-online.target
+
+
+[Service]
+
+# // default service type
+# Type=simple
+
+# // [ https://serverfault.com/questions/695505/change-systemd-unit-tag-send-to-journalctl-syslog ]
+# SyslogIdentifier=sinatra-%i
+SyslogIdentifier=sinatra-hello
+
+## EnvironmentFile=-/etc/default/ignoreme-if-missing
+## ExecStart=/path/to/file $ENVVAR
+## ExecStart=/usr/local/bin/rackup -p 80 -o 0
+# // debug
+## ExecStart=/usr/local/bin/rackup -p {{target.internal_port}} -o 0
+ExecStart=/usr/local/bin/rackup -p {{target.internal_port}}
+# // [ https://www.freedesktop.org/software/systemd/man/systemd.exec.html#WorkingDirectory= ]
+WorkingDirectory={{ target.webdir}}
+
+# // [ https://www.freedesktop.org/software/systemd/man/systemd.exec.html#User= ]
+# User=...
+# Group=...
+
+# PIDFile=/...
+# ExecReload=/...
+# ExecReload=/bin/kill -HUP $MAINPID
+# ExecStop=/...
+
+# Restart=no
+# Restart=always
+# Restart=on-failure
+
+# RestartSec=5min
+# RestartSec=5s
+
+# KillMode=mixed
+# KillMode=control-group
+
+# SuccessExitStatus=0 2 15
+
+
+[Install]
+
+WantedBy=multi-user.target
+# Alias=altname.service
