@@ -1,4 +1,4 @@
-# rea-view
+# rea-pack
 
 ## Task
 
@@ -10,8 +10,62 @@
  * (c) code configuring a new server to run a Sinatra app (AWS/VM, container or bare metal);
  * (a) code configuring an environment to run (b) and (c).
 
-### Prerequisites
+In reality, (a), (b) and (c) might be three very loosely connected projects, updated with quite different frequencies -- from "almost never" for (a) to weekly or even daily for (c).
 
+For this reason, the steps below use three different gitlab-hosted repos deployed with read-only tokens; however, the [local](local) directory contains a bundle of it all packed together, so a quick TL;DR install may look as follows:
+
+### TL;DR
+
+#### build configuration host
+
+ * start a fresh Ubuntu 20.04 container of VM
+ * install `git`, clone this repository
+ * copy contents of the [local](local) repository folder to `/.` to get the following structure:
+
+```
+$ tree -L 3 --charset=C /local
+
+/local
+|-- ansible
+|   `-- hello
+|       |-- dependencies.png
+|       |-- hosts.example.ini
+|       |-- nginx.default.j2
+|       |-- README.md
+|       |-- run-tf.sh
+|       |-- sinatra_hello.service.j2
+|       `-- sinatra_hello.yml
+|-- terraform
+|   `-- hello
+|       |-- credentials.tf
+|       |-- main.tf
+|       |-- README.md
+|       |-- settings.tf
+|       `-- terraform.tfvars
+|-- ansible-install.sh
+`-- terraform-install.sh
+
+```
+
+ * Run `/local/terraform-install.sh` and `/local/ansible-install.sh` to install Terraform and Ansible.
+
+#### create a remote vm
+
+  * Edit `/local/terraform/hello/settings.tf` and `/local/terraform/hello/terraform.tfvars`, adding AWS credentials etc (see [prerequisites](#prerequisites)
+  * run `(cd /local/terraform/hello && terraform init)` to install Terraform providers and `(cd /local/terraform/hello && terraform apply -auto-approve)` to build the VM
+  * note the build VM ip address from `/local/terraform/hello/ip_address.txt` and make sure it can be ssh-d into with configured keypair: `ssh $(cat /local/terraform/hello/ip_address.txt) 'ip -br a'`
+  
+#### configure the remote vm
+
+ * `( cd /local/ansible/hello && ./run-tf.sh )`
+ * test it : `curl 'http://'$(cat /local/terraform/hello/ip_address.txt)`
+
+
+----
+Now let us do the same just a little slower.
+
+### Prerequisites
+<a name="prerequisites"></a>
 Certain AWS prerequisites are expected -- for example, one would need credentials to work with AWS API.
 Also, `ssh` keys are normally used for a group of hosts rather than generated per VM. Hence, we would assume that you have the following:
 
