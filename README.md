@@ -38,7 +38,7 @@ To add, we are going to use Terraform to do all the virtual hardware configurati
 
 This is normally a one-off (or at least infrequent) task, so we'll go with a shell script.
 
-Deploy a new fresh container or VM with Ubuntu 20.04 LTS (22.04 LTS is likely to work as well), and run [scripts/build-tower.sh](scripts/build-tower.sh):
+Deploy a new fresh container or VM with Ubuntu 20.04 LTS (22.04 LTS is likely to work as well), and run [local/build-tower.sh](local/build-tower.sh):
 
     apt install -y git
     git clone 'https://gitlab+deploy-token-1019111:xJcXwE1j7GYkDmy1u5QJ@gitlab.com/c21f969b5f/rea-set.git'
