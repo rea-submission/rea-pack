@@ -1,5 +1,7 @@
 # rea-pack
 
+_Code components to solve the task below, bundled._
+
 ## Task
 
 * https://github.com/rea-cruitment/simple-sinatra-app 
