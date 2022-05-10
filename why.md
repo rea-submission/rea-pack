@@ -5,8 +5,8 @@
 There are many tools on the market, it's impossible to know all of them.     
 If many parts in the text look familiar, it may appear too wordy.   
 
-However, I would rather assume little preliminary knowledge.   
-For a baseline -- acquaintance with Unix shell, `git` and may be some virtualization environment -- from AWS to VirtualBox.
+However, I would rather assume little preliminary familiarity with any software.   
+For a really simple baseline -- acquaintance with Unix shell, `git` and may be some virtualization environment -- from AWS to VirtualBox.
 
 
 ## use three separate repos?
