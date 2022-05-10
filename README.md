@@ -32,6 +32,12 @@ pip3 install boto3
 # pip3 install botocore
 ```
 
+### Q & A
+
+"Why on Earth did you .. ?" -- Well, now it's a good time to explain my reasons:
+
+ * [why.md](why.md)
+
 
 ### TL;DR
 
