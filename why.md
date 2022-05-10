@@ -1,5 +1,14 @@
 # why did you ...
 
+## assume no previous Ansible or Terraform knowledge?
+
+There are many tools on the market, it's impossible to know all of them.     
+If many parts in the text look familiar, it may appear too wordy.   
+
+However, I would rather assume little preliminary knowledge.   
+For a baseline -- acquaintance with Unix shell, `git` and may be some virtualization environment -- from AWS to VirtualBox.
+
+
 ## use three separate repos?
 
 In the end I have bundled everything under [local](local), mostly to meet the formal requirements -- but this makes this repository effectively an online clipboard.   
