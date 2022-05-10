@@ -8,9 +8,21 @@ _Code components to solve the task below, bundled._
 
 ## Solution
 
- * (b) code building a new VM on AWS and doing a basic AWS firewall configuration;
+Our plan is to write the following code:
+
+ * (b) code building a new VM on AWS and doing a basic AWS firewall configuration; on completion, it shall produce a VM with:
  * (c) code configuring a new server to run a Sinatra app (AWS/VM, container or bare metal);
  * (a) code configuring an environment to run (b) and (c).
+
+On completion, (a) shall configure a new Ubuntu VM or container to be able to run (b) and (c);   
+After finishing (b), we shall get a remote VM with 
+  1. an installed OS  -- Ubuntu 20.04 LTS
+  2. a running ssh server that accepts connections on the standard ssh port -- port 22
+  3. an installed public ssh key on an account that allows passwordless root or sudo access -- passwordless sudo for `ubuntu` user
+
+
+Finally, after step (c) we shall have the required web server hosting our "hello, world" app on port 80.
+
 
 ### Variations
 
