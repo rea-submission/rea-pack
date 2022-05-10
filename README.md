@@ -23,7 +23,7 @@ However, Ansible provisioning is not idempotent, so each run of `ansible-playboo
 
 We could overcome this by e.g. counting the number of IPs in `[webserver]` group and running the task conditionally -- however, since Terraform has already solved this problem, we can simply use it instead.
 
-For completeness, here are Ansible install commands for this module in addition to ones in [ansible-install.sh](https://github.com/rea-submission/rea-pack/blob/main/local/ansible-install.sh):
+For completeness, here are commands to install the prerequisites required to run this Ansible playbook in addition to ones in [ansible-install.sh](https://github.com/rea-submission/rea-pack/blob/main/local/ansible-install.sh):
 
 ```
 # [  https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_instance_module.html]
