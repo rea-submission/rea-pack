@@ -36,7 +36,7 @@ It will make it easier to configure https in a tested and relaible way, change b
 
 ## configure no local firewall rules?
 
-First, it is always less expensive to use an external firewall. 
+First, it is normally much less expensive resource-wise to use an external firewall. 
 Second, in real life I would have probably restricted incoming `ssh` to a particular ip range -- and yes, 
 used a local `knockd` configuration if for some reason this is not practical -- but it is probably too much for a "hello, world" example.
 
