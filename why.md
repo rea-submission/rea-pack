@@ -14,7 +14,7 @@ I find it a little easier to use deployment tokens with Gitlab.
 
 I had zero previous acquaintance with Sinatra, so I chose a distribution with the largest user / repository 
 base.   
-( Just in case I would have to install a gozillion dependencies or run into a gozillion issues and would have to google for related user experience. )
+( Just in case I would have to install a million dependencies or run into a million issues and would have to google for related user experience. )
 
 The choice for the orchestration server was the same simply to make it uniform. 
 
