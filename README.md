@@ -15,7 +15,7 @@
 Step (b) can also be implemented in Ansible, as done here:
  * https://github.com/asjadathick/ansible-sinatra
 
-I updated the provisioning part, `provision.yml`, to use [amazon.aws.ec2_instance module](https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_instance_module.html) instead of [amazon.aws.ec2 module](https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_module.html):
+I updated the provisioning part, `provision.yml`, to use [amazon.aws.ec2_instance](https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_instance_module.html) module instead of [amazon.aws.ec2](https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_module.html) module:
 
  * https://github.com/rea-submission/ansible-sinatra
 
