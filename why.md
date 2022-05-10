@@ -2,7 +2,7 @@
 
 ## use three separate repos?
 
-In the end I have bundled everything under [local](local), but this makes this repository effectively an online clipboard.   
+In the end I have bundled everything under [local](local), mostly to meet the formal requirements -- but this makes this repository effectively an online clipboard.   
 Since each of these three parts could be implemented differently, they actually belong to three different sub-projects.
 
 ## use Gitlab?
