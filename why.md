@@ -5,7 +5,7 @@
 There are many tools on the market, it's impossible to know all of them.     
 If many parts in the text look familiar, it may appear too wordy.   
 
-However, I would rather assume little preliminary familiarity with any software.   
+However, I would rather assume little preliminary familiarity with any specific software.   
 For a really simple baseline -- acquaintance with Unix shell, `git` and may be some virtualization environment -- from AWS to VirtualBox.
 
 
