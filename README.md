@@ -14,6 +14,29 @@ In reality, (a), (b) and (c) might be three very loosely connected projects, upd
 
 For this reason, the steps below use three different gitlab-hosted repos deployed with read-only tokens; however, the [local](local) directory contains a bundle of it all packed together, so a quick TL;DR install may look as follows:
 
+### Variations
+
+Step (b) could also be implemented in Ansible, as done here:
+ * https://github.com/asjadathick/ansible-sinatra
+
+I updated the provisioning part, `provision.yml`, to use [amazon.aws.ec2_instance module](https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_instance_module.html) instead of [amazon.aws.ec2 module](https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_module.html):
+
+ * https://github.com/rea-submission/ansible-sinatra
+
+However, Ansible provisioning is not idempotent, so each run of `ansible-playbook provision.yml` would create a fresh new instance.
+
+We could overcome this by e.g. counting the number of IPs in `[webserver]` group and running the task conditionally, but since Terraform has already solved this problem, we can simply use it instead.
+
+For completeness, here are Ansible install commands for this module in addition to ones in [ansible-install.sh](https://github.com/rea-submission/rea-pack/blob/main/local/ansible-install.sh):
+
+```
+# [  https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_instance_module.html]
+ansible-galaxy collection install amazon.aws
+pip3 install boto3
+# pip3 install botocore
+```
+
+
 ### TL;DR
 
 #### build configuration host
