@@ -10,10 +10,6 @@
  * (c) code configuring a new server to run a Sinatra app (AWS/VM, container or bare metal);
  * (a) code configuring an environment to run (b) and (c).
 
-In reality, (a), (b) and (c) might be three very loosely connected projects, updated with quite different frequencies -- from "almost never" for (a) to weekly or even daily for (c).
-
-For this reason, the steps below use three different gitlab-hosted repos deployed with read-only tokens; however, the [local](local) directory contains a bundle of it all packed together, so a quick TL;DR install may look as follows:
-
 ### Variations
 
 Step (b) could also be implemented in Ansible, as done here:
@@ -25,7 +21,7 @@ I updated the provisioning part, `provision.yml`, to use [amazon.aws.ec2_instanc
 
 However, Ansible provisioning is not idempotent, so each run of `ansible-playbook provision.yml` would create a fresh new instance.
 
-We could overcome this by e.g. counting the number of IPs in `[webserver]` group and running the task conditionally, but since Terraform has already solved this problem, we can simply use it instead.
+We could overcome this by e.g. counting the number of IPs in `[webserver]` group and running the task conditionally -- however, since Terraform has already solved this problem, we can simply use it instead.
 
 For completeness, here are Ansible install commands for this module in addition to ones in [ansible-install.sh](https://github.com/rea-submission/rea-pack/blob/main/local/ansible-install.sh):
 
@@ -38,6 +34,11 @@ pip3 install boto3
 
 
 ### TL;DR
+
+In reality, parts (a), (b) and (c) above might be three very loosely connected projects, updated with quite different frequencies -- from "almost never" for (a) to weekly or even daily for (c).
+
+For this reason, the steps below use three different gitlab-hosted repos deployed with read-only tokens; however, the [local](local) directory contains a bundle of it all packed together, so a quick TL;DR install may look as follows:
+
 
 #### build configuration host
 
