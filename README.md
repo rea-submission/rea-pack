@@ -48,7 +48,7 @@ For this reason, the steps below use three different gitlab-hosted repos deploye
 
 #### build configuration host
 
- * start a fresh Ubuntu 20.04 container of VM
+ * start a fresh Ubuntu 20.04 container or VM
  * install `git`, clone this repository
  * copy contents of the [local](local) repository folder to `/.` to get the following structure:
 
