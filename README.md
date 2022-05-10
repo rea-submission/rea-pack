@@ -43,7 +43,7 @@ pip3 install boto3
 
 In reality, parts (a), (b) and (c) above might be three very loosely connected projects, updated with quite different frequencies -- from "almost never" for (a) to weekly or even daily for (c).
 
-For this reason, the steps below use three different gitlab-hosted repos deployed with read-only tokens; however, the [local](local) directory contains a bundle of it all packed together, so a quick TL;DR install may look as follows:
+For this reason, the steps below use three different gitlab-hosted repos deployed with read-only tokens; however, the [local](local) directory contains a bundle of it all packed together, and we can use it for quick tl;dr walkthrough as follows:
 
 
 #### build configuration host
